@@ -1,0 +1,25 @@
+{
+  "name": "supreme-octo-memory-back-end",
+  "version": "1.0.0",
+  "description": "## Includes a database & api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdullah-sah/supreme-octo-memory-back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdullah-sah/supreme-octo-memory-back-end/issues"
+  },
+  "homepage": "https://github.com/abdullah-sah/supreme-octo-memory-back-end#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "sequelize": "^6.25.8",
+    "sqlite3": "^5.1.2"
+  }
+}
