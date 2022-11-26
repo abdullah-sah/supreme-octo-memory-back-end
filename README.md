@@ -3,4 +3,4 @@
 ## Includes a database & api
 
 ## To start the server run:
->`npm run dev`
+`npm run dev`
