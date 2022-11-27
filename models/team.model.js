@@ -18,7 +18,7 @@ Team.init(
 		},
 		size: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
+			defaultValue: 11,
 		},
 	},
 	{ sequelize: db }
