@@ -1,7 +1,7 @@
-const Player = require("./player.model");
-const Team = require("./team.model");
+const Player = require("../models/player.model");
+const Team = require("../models/team.model");
 
-Team.hasMany(Player);
-Player.belongsTo(Team);
+Player.belongsToMany(Team, { through: "Player_Team" });
+Team.belongsToMany(Player, { through: "Player_Team" });
 
 module.exports = { Player, Team };
