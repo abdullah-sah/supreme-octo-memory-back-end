@@ -1,8 +1,9 @@
-const db = require("./db");
 const { Player, Team } = require("../models/");
+const db = require("../db/db");
 
 const seed = async () => {
 	await db.sync({ force: true });
+
 	const players = await Player.bulkCreate([
 		{
 			name: "Messi",
@@ -45,15 +46,12 @@ const seed = async () => {
 		},
 	]);
 
-	const [messi, iniesta, xavi, ronaldinho, valdez, puyol, gavi, pedri] =
-		players;
 	const [barca1, barca2, barca3] = teams;
+	barca1.addPlayers(players.slice(0, 3));
+	barca2.addPlayers(players.slice(3, 6));
+	barca3.addPlayers(players.slice(6, 8));
 
-	await barca1.setPlayers([messi, iniesta, gavi]);
-	await barca2.setPlayers([xavi, ronaldinho, pedri]);
-	await barca3.setPlayers([valdez, puyol]);
-
-	console.log("Database populated :)");
+	console.log("SIUUUUUUU");
 };
 
 module.exports = seed;

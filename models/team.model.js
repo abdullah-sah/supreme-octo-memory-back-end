@@ -9,7 +9,6 @@ Team.init(
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true,
-			unique: true,
 		},
 		name: {
 			type: DataTypes.STRING,
@@ -18,7 +17,11 @@ Team.init(
 		},
 		size: {
 			type: DataTypes.INTEGER,
-			defaultValue: 11,
+			defaultValue: 0,
+			validate: {
+				max: 11,
+				min: 0,
+			},
 		},
 	},
 	{ sequelize: db }
