@@ -121,7 +121,7 @@ teamRouter.delete("/:teamId/player/:playerId", async (req, res) => {
 			res.send({ success: true, newTeam });
 		}
 	} catch (err) {
-		res.send({ success: false, error: err.message });
+		res.status(404).send({ success: false, error: err.message });
 	}
 });
 
