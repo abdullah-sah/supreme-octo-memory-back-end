@@ -65,4 +65,36 @@ teamRouter.delete("/:identifier", async (req, res) => {
 	}
 });
 
+// Put a new player in a specific team given a team id
+teamRouter.put("/:teamId/player/:playerId", async (req, res) => {
+	try {
+		const teamCount = await Team.count();
+		const playerCount = await Player.count();
+		const playerValid = isValidId(req.params.playerId, playerCount);
+		const teamValid = isValidId(req.params.teamId, teamCount);
+		if (!teamValid || !playerValid) {
+			// if the team is invalid, give value of 'team'. if player is invalid, give value of 'player'
+			const teamOrPlayer = !teamValid ? "team" : "player";
+			throwError(`No ${teamOrPlayer} with that id exists`);
+		}
+
+		const team = await Team.findByPk(req.params.teamId);
+		const player = await Player.findByPk(req.params.playerId);
+
+		const playerTeams = await player.getTeams();
+		playerTeams.forEach((value, index, arr) => {
+			if (value.id === team.id) {
+				throwError(
+					"I'm afraid that player is already in your team you muppet."
+				);
+			}
+		});
+
+		await team.addPlayers(player);
+		const newTeam = await Team.findByPk(req.params.teamId);
+		res.send({ success: true, newTeam });
+	} catch (err) {
+		res.status(404).send({ success: false, error: err.message });
+	}
+});
 module.exports = teamRouter;
