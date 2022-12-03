@@ -4,6 +4,7 @@ const { Player, Team } = require("../models/");
 
 // utilities
 const { isValidId, isIdOrName, throwError } = require("../utilities/index");
+const playerExistsInTeam = require("../utilities/playerExistsInTeam");
 
 // Creates new team and returns it
 teamRouter.put("/:name", async (req, res) => {
@@ -82,7 +83,7 @@ teamRouter.put("/:teamId/player/:playerId", async (req, res) => {
 		const player = await Player.findByPk(req.params.playerId);
 
 		const playerTeams = await player.getTeams();
-		playerTeams.forEach((value, index, arr) => {
+		playerTeams.forEach((value) => {
 			if (value.id === team.id) {
 				throwError(
 					"I'm afraid that player is already in your team you muppet."
@@ -97,4 +98,31 @@ teamRouter.put("/:teamId/player/:playerId", async (req, res) => {
 		res.status(404).send({ success: false, error: err.message });
 	}
 });
+
+// Deletes a player from a team given a teamId and a playerId
+teamRouter.delete("/:teamId/player/:playerId", async (req, res) => {
+	try {
+		const player = await Player.findByPk(req.params.playerId);
+		const team = await Team.findByPk(req.params.teamId);
+		// if either of player and team doesn't return a value from db:
+		if (!player || !team) {
+			// storing either 'player' or 'team' depending on which one is falsy
+			let playerOrTeam = !player ? "player" : "team";
+			throwError(`Couldn't find that ${playerOrTeam} matey`);
+		} else {
+			const playerInTeam = await playerExistsInTeam(player.id, team.id);
+			let newTeam;
+			if (playerInTeam) {
+				await player.removeTeams(team);
+				newTeam = await Team.findByPk(team.id);
+			} else {
+				throwError("That player doesn't exist in that team matey");
+			}
+			res.send({ success: true, newTeam });
+		}
+	} catch (err) {
+		res.send({ success: false, error: err.message });
+	}
+});
+
 module.exports = teamRouter;
