@@ -4,7 +4,8 @@
   "description": "## Includes a database & api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,8 @@
   },
   "homepage": "https://github.com/abdullah-sah/supreme-octo-memory-back-end#readme",
   "devDependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "nodemon": "^2.0.20",
     "sequelize": "^6.25.8",
     "sqlite3": "^5.1.2"
