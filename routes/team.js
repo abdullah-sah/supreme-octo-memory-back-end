@@ -26,7 +26,7 @@ teamRouter.get("/:identifier", async (req, res) => {
 
 		// if number passed in > number of rows in table, return error
 		const valid = isValidId(identifier, count);
-		if (!valid) throwError("That team don't exist mate");
+		if (!valid && identifier !== null) throwError("That team don't exist mate");
 
 		// if identifier is NOT null => findByPk(identifier) --- else => findOne where name = string passed in
 		const team = identifier

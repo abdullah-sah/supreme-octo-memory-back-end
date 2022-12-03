@@ -51,7 +51,7 @@ const seed = async () => {
 	barca2.addPlayers(players.slice(3, 6));
 	barca3.addPlayers(players.slice(6, 8));
 
-	console.log("SIUUUUUUU");
+	console.log("Database populated :)");
 };
 
 module.exports = seed;
