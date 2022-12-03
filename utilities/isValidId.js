@@ -1,5 +1,5 @@
 const isValidId = (id, count) => {
-	return id > count || id <= 0 ? false : true;
+	return Number(id) <= count && Number(id) > 0 ? true : false;
 };
 
 module.exports = isValidId;
